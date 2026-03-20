@@ -1,0 +1,37 @@
+# --- System Files ---
+.DS_Store
+Thumbs.db
+
+# --- Environment/Secret Files ---
+.env
+.env.local
+.venv/
+venv/
+env/
+# Ignore Python's compiled files
+**/__pycache__/
+*.py[cod]
+
+# --- JavaScript/Web Junk ---
+**/node_modules/
+**/dist/
+**/build/
+.npm
+.eslintcache
+
+# --- Java/C++ Build Artifacts ---
+*.class
+*.o
+*.exe
+**/bin/
+**/obj/
+
+# --- IDE Specifics ---
+.vscode/
+.idea/
+*.swp
+
+# --- Large Data ---
+*.log
+*.zip
+*.tar.gz
