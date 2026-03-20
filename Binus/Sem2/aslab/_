@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main(){
+  char this;
+  this = getchar();
+  putchar(this);
+  char that[30];
+  gets(that);
+  puts(that);
+}
