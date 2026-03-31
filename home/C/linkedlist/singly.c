@@ -90,6 +90,31 @@ void pushHead(int value){
     tail->next=NULL;
   }
 
+  void popSearch(int value){
+    if(head==NULL) {
+      printf("head is null\n");
+      return;
+    }
+    if(head->value == value){
+      node* temphead = head;
+      head = head->next;
+      free(temphead);
+      return;
+    }
+
+    node* curr = head;
+    while(curr->next!=NULL){
+      if(curr->next->value == value){
+        node* temp = curr->next   
+        curr->next = curr->next->next;
+        free(temp);
+        return;
+      }
+      curr=curr->next; 
+    }
+    printf("not found\n");
+  }
+
   
 
 }
