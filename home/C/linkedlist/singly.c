@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
+typedef struct node{
   int value;
-  struct node* next
+  struct node* next;
 }node;
 
-node* head = NULL; *tail=NULL;
+node* head = NULL, *tail=NULL;
 
 node* createNode(int value){
   node* newNode = (node*)malloc(sizeof(node));
@@ -105,7 +105,7 @@ void pushHead(int value){
     node* curr = head;
     while(curr->next!=NULL){
       if(curr->next->value == value){
-        node* temp = curr->next   
+        node* temp = curr->next;
         curr->next = curr->next->next;
         free(temp);
         return;
@@ -114,6 +114,29 @@ void pushHead(int value){
     }
     printf("not found\n");
   }
+
+  void viewPlane(){
+    if(head==NULL){
+      printf("empty list\n");
+      return;
+    }
+    node* curr = head;
+    while(curr){
+      printf("%d\n", curr->value);
+      curr->next;
+    }
+  }
+
+  int main(){
+    pushHead(10);
+    pushHead(100);
+    pushHead(12);
+    pushTail(2);
+
+    viewPlane();
+    return 0;
+  }
+
 
   
 
