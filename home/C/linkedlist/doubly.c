@@ -106,9 +106,11 @@ void popSearch(int value){
 
     if(head->value==value){
         popHead();
+        return;
     }
     if(tail->value==value){
         popTail();
+        return;
     }
     node* curr = head;
     while (curr->next != NULL && curr->next->value != value) {
@@ -133,6 +135,59 @@ void popSearch(int value){
 
 }
 
+void viewNode(){
+    node* curr = head;
+    while(curr){
+        printf("%d ",curr->value);
+        curr=curr->next;
+    }
+    printf("\n");
+}
 
+void clearNode(){
+    node* curr = head;
+    while(curr){
+        node* temp = curr;
+        curr =  curr->next;
+        free(temp);
+        curr->prev = NULL;
+    }
+}
+
+int main(){
+    int option=0;
+    int value;
+    while(option != 7){
+        printf("what do you want to do?\n1. Push Head\n2. Push Tail\n3. Pop Head\n4. Pop Tail\n5. View Node\n");
+
+        scanf("%d",&option);
+        switch(option){
+            case 1:
+            printf("enter value: ");
+            scanf("%d",&value);getchar();
+            pushHead(value);
+            break;
+            case 2:
+            printf("enter value: ");
+            scanf("%d", &value);getchar();
+            pushTail(value);
+            break;
+            case 3:
+            popHead();
+            break;
+            case 4:
+            popTail();
+            break;
+            case 5: 
+            viewNode();
+            break;
+            case 6:
+            clearNode();
+            break;
+
+        }
+
+    }
+   }
 
 
