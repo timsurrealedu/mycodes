@@ -46,5 +46,18 @@ void pop(){
 }
 
 void viewStack(){
-    
+    node* curr = head;
+    while(curr){
+        printf("%d ", curr->value);
+        curr=curr->next;
+    }
+    printf("\n");
+}
+
+int main(){
+    push(10);
+    push(23);
+    push(1);
+    pop();
+    viewStack();
 }
