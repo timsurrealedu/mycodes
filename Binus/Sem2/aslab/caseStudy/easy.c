@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Cross-platform setup for input and screen clearing
+//saya coding di laptop linux, jadi saya kurang yakin apakah berfungsi di perangkat windows, tapi saya sudah buat ifdef untuk windows menggunakan conio.h
 #ifdef _WIN32
     #include <conio.h>
     #define CLEAR "cls"
@@ -10,7 +10,6 @@
     #include <unistd.h>
     #define CLEAR "clear"
 
-    // Manual getch() for Linux/Arch
     int getch() {
         struct termios oldt, newt;
         int ch;
@@ -27,7 +26,6 @@
 #define ROWS 6
 #define COLS 7
 
-// Key Definitions for cross-platform logic
 #define KEY_UP 1001
 #define KEY_DOWN 1002
 #define KEY_LEFT 1003
@@ -40,14 +38,12 @@ int board[ROWS][COLS];
 int cursorCol = 0;
 int currentPlayer = 1;
 
-// Function to handle key presses across different OS signals
 int get_input() {
     int ch = getch();
     if (ch == 27) { 
         #ifdef _WIN32
             return ch; 
         #else
-            // Linux arrow keys are escape sequences: ESC + [ + (A,B,C,D)
             int next = getch();
             if (next == 91) {
                 switch (getch()) {
@@ -60,7 +56,7 @@ int get_input() {
             return KEY_ESC;
         #endif
     }
-    // Handle Windows special keys (arrows) which start with 0 or 224
+
     #ifdef _WIN32
     if (ch == 0 || ch == 224) {
         int next = getch();
@@ -81,7 +77,6 @@ void initBoard() {
             board[i][j] = 0;
 }
 
-// RECURSIVE WIN CONDITION
 int countRecursive(int r, int c, int dr, int dc, int player) {
     if (r < 0 || r >= ROWS || c < 0 || c >= COLS || board[r][c] != player) {
         return 0;
@@ -106,14 +101,12 @@ void drawGame() {
     system(CLEAR);
     printf("--- Player %d's Turn ---\n\n", currentPlayer);
 
-    // Disc preview above columns
     for (int j = 0; j < COLS; j++) {
         if (j == cursorCol) printf("  V  ");
         else printf("     ");
     }
     printf("\n");
 
-    // Main 7x6 Grid
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
             if (board[i][j] == 0) printf("| . |");
