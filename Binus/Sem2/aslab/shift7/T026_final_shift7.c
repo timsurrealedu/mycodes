@@ -3,23 +3,23 @@
 #include <time.h>
 #include <string.h>
 
-struct State {
+typedef struct State {
     int turn;
     int playerHP;
     int enemyHP;
     int skillsLeft;
     struct State* prev;
     struct State* next;
-};
+}State;
 
-struct State* currentState = NULL;
+State* currentState = NULL;
 
 void clearScreen() {
     printf("\033[H\033[2J"); 
 }
 
 void saveTurn(int t, int pHP, int eHP, int skills) {
-    struct State* newNode = (struct State*)malloc(sizeof(struct State));
+    State* newNode = (State*)malloc(sizeof(State));
     newNode->turn = t;
     newNode->playerHP = pHP;
     newNode->enemyHP = eHP;
@@ -28,9 +28,9 @@ void saveTurn(int t, int pHP, int eHP, int skills) {
     newNode->prev = currentState;
 
     if (currentState != NULL) {
-        struct State* future = currentState->next;
+        State* future = currentState->next;
         while (future != NULL) {
-            struct State* temp = future;
+            State* temp = future;
             future = future->next;
             free(temp); 
         }
