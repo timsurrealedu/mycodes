@@ -1,0 +1,3 @@
+squid;<O>;14;10
+crab;/W\;13;20
+octopus;<M>;10;35
