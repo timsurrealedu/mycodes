@@ -16,18 +16,17 @@ node* createNode(char brack){
 }
 
 void push(char brack){
-    node* newNode = createNode(brack);
+    node* newNode=createNode(brack);
     if(head==NULL){
         head=tail=newNode;
         return;
     }
     newNode->next=head;
-    head=newNode; 
+    head=newNode;
 }
 
 void pop(){
     if(head==NULL){
-        printf("head is empty\n");
         return;
     }
     if(head==tail){
@@ -36,14 +35,15 @@ void pop(){
         return;
     }
     node* temp = head;
-    head=head->next;
+    head = head->next;
     free(temp);
 }
 
 int compare(char brack1, char brack2){
-    if(brack1=='('&&brack2==')'||brack1=='['&&brack2==']'||brack1=='{'&&brack2=='}'){
+    if(brack1=='('&&brack2==')'||brack1=='{'&&brack2=='}'||brack1=='['&&brack2==']'){
         return 1;
-    }else{
+    }
+    else{
         return 0;
     }
 }
@@ -61,16 +61,14 @@ int main(){
             if(head!=NULL&&compare(head->brack,temp)==1){
                 pop();
             }else{
-                possible=0;
+                possible = 0;
                 break;
             }
         }
     }
     if(possible==1&&head==NULL){
         printf("balanced\n");
-        return 0;
     }else{
-        printf("not balanced\n");
-        return 0;
+        printf("unbalanced\n");
     }
 }
