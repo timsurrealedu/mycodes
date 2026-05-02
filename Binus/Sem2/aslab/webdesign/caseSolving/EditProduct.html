@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Edit Product</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+    <style>
+        .form-container {
+            max-width: 500px; margin: 100px auto 40px; padding: 30px;
+            background: var(--card-bg); border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .form-container label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-container input, .form-container select, .form-container textarea {
+            width: 100%; padding: 10px; margin-bottom: 15px;
+            box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
+            background: var(--bg-color); color: var(--text-color);
+        }
+        .submit-btn {
+            width: 100%; padding: 12px; background-color: #2196F3;
+            color: white; border: none; border-radius: 4px; cursor: pointer;
+            transition: 0.3s; font-size: 16px; font-weight: bold;
+        }
+        .submit-btn:hover { background-color: #0b7dda; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .cancel-btn {
+            width: 100%; padding: 12px; background-color: gray; margin-top: 10px;
+            color: white; border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; font-size: 16px; font-weight: bold;
+        }
+        .cancel-btn:hover { background-color: darkgray; }
+    </style>
+</head>
+<body>
+    <!-- STICKY NAVBAR -->
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+            <!-- Injected via updateNavbar() -->
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Edit Product</h2>
+        
+        <form id="editProductForm">
+            <label for="editProdName">Product Name:</label>
+            <input type="text" id="editProdName" required>
+
+            <label for="editProdPrice">Price ($):</label>
+            <input type="number" id="editProdPrice" min="1" required>
+
+            <label for="editProdCategory">Category:</label>
+            <select id="editProdCategory" required>
+                <option value="Electronics">Electronics</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Shoes & Jewelry">Shoes & Jewelry</option>
+                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                <option value="Sports & Outdoors">Sports & Outdoors</option>
+            </select>
+
+            <label for="editProdStock">Stock Quantity:</label>
+            <input type="number" id="editProdStock" min="1" required>
+
+            <label for="editProdDesc">Description:</label>
+            <textarea id="editProdDesc" rows="4" required></textarea>
+
+            <button type="submit" class="submit-btn">Save Changes</button>
+            <button type="button" class="cancel-btn" onclick="window.location.href='Profile.html'">Cancel</button>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>mOGu Marketplace - Your all in one solution to shopping</p>
+        <p>Contact: support@mogu.com</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">FB</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TW</a>
+        </div>
+    </footer>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const productIdToEdit = parseInt(localStorage.getItem('editProductId'));
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        
+        let productIndex = products.findIndex(p => p.id === productIdToEdit);
+
+        if (!currentUser || productIndex === -1) {
+            alert("Invalid product or session.");
+            window.location.href = "Profile.html";
+        } else {
+            // Pre-fill the form
+            const prod = products[productIndex];
+            document.getElementById("editProdName").value = prod.name;
+            document.getElementById("editProdPrice").value = prod.price;
+            document.getElementById("editProdCategory").value = prod.category;
+            document.getElementById("editProdStock").value = prod.stock || 0;
+            document.getElementById("editProdDesc").value = prod.description || "";
+        }
+
+        document.getElementById("editProductForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Update the object
+            products[productIndex].name = document.getElementById("editProdName").value;
+            products[productIndex].price = parseFloat(document.getElementById("editProdPrice").value);
+            products[productIndex].category = document.getElementById("editProdCategory").value;
+            products[productIndex].stock = parseInt(document.getElementById("editProdStock").value);
+            products[productIndex].description = document.getElementById("editProdDesc").value;
+
+            // Save back to localStorage
+            localStorage.setItem("products", JSON.stringify(products));
+            
+            alert("Product updated successfully!");
+            window.location.href = "Profile.html";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+    <style>
+        .form-container {
+            max-width: 400px; margin: 100px auto 40px; padding: 30px;
+            background: var(--card-bg); border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .form-container input {
+            width: 100%; padding: 10px; margin: 8px 0 15px;
+            box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
+        }
+        .form-container button[type="submit"] {
+            width: 100%; padding: 12px; background-color: var(--primary-color);
+            color: white; border: none; border-radius: 4px; cursor: pointer;
+            transition: 0.3s; font-size: 16px;
+        }
+        .error-text { color: red; font-size: 14px; margin-bottom: 10px; }
+        .toggle-btn { cursor: pointer; background: #666; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px;}
+    </style>
+</head>
+<body>
+    <!-- STICKY NAVBAR -->
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+            <!-- Injected via updateNavbar() -->
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Login to mOGu</h2>
+        <p id="error-msg" class="error-text"></p>
+        
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+            
+            <button type="button" class="toggle-btn" onclick="togglePasswordVisibility()">Show/Hide Password</button>
+            <br><br>
+
+            <button type="submit">Login</button>
+        </form>
+        <p style="text-align: center; margin-top: 15px;">Don't have an account? <a href="Register.html" style="color: var(--primary-color);">Register here</a></p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>mOGu Marketplace - Your all in one solution to shopping</p>
+        <p>Contact: support@mogu.com</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">FB</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TW</a>
+        </div>
+    </footer>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passField = document.getElementById("password");
+            passField.type = passField.type === "password" ? "text" : "password";
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const errorMsg = document.getElementById("error-msg");
+            errorMsg.innerText = ""; // clear previous errors
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Fetch users array from localStorage
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            
+            // Validation
+            const user = users.find(u => u.email === email);
+            if (!user) {
+                return errorMsg.innerText = "Error: Email not found.";
+            }
+
+            if (user.password !== password) {
+                return errorMsg.innerText = "Error: Password is wrong.";
+            }
+
+            // Set logged in session
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            alert("Login successful!");
+            window.location.href = "Home.html"; // Redirects to home upon login
+        });
+    </script>
+</body>
+</html>

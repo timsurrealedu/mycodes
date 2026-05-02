@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Register</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+    <style>
+        .form-container {
+            max-width: 400px; margin: 100px auto 40px; padding: 30px;
+            background: var(--card-bg); border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .form-container input {
+            width: 100%; padding: 10px; margin: 8px 0 15px;
+            box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
+        }
+        .form-container button[type="submit"] {
+            width: 100%; padding: 12px; background-color: var(--primary-color);
+            color: white; border: none; border-radius: 4px; cursor: pointer;
+            transition: 0.3s; font-size: 16px;
+        }
+        .error-text { color: red; font-size: 14px; margin-bottom: 10px; }
+        .toggle-btn { cursor: pointer; background: #666; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px;}
+    </style>
+</head>
+<body>
+    <!-- STICKY NAVBAR -->
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+            <!-- Injected via updateNavbar() -->
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Create an Account</h2>
+        <p id="error-msg" class="error-text"></p>
+        
+        <form id="registerForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Enter your age" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+            
+            <label for="confirm">Confirm Password:</label>
+            <input type="password" id="confirm" placeholder="Confirm password" required>
+            
+            <button type="button" class="toggle-btn" onclick="togglePasswordVisibility()">Show/Hide Passwords</button>
+            <br><br>
+
+            <button type="submit">Register</button>
+        </form>
+        <p style="text-align: center; margin-top: 15px;">Already have an account? <a href="Login.html" style="color: var(--primary-color);">Login here</a></p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>mOGu Marketplace - Your all in one solution to shopping</p>
+        <p>Contact: support@mogu.com</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">FB</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TW</a>
+        </div>
+    </footer>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passField = document.getElementById("password");
+            const confirmField = document.getElementById("confirm");
+            const type = passField.type === "password" ? "text" : "password";
+            passField.type = type;
+            confirmField.type = type;
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const errorMsg = document.getElementById("error-msg");
+            errorMsg.innerText = ""; // clear previous errors
+
+            const name = document.getElementById("name").value;
+            const age = parseInt(document.getElementById("age").value);
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm").value;
+
+            // Validations
+            if (name.length <= 4) return errorMsg.innerText = "Name must be more than 4 characters.";
+            if (age <= 18) return errorMsg.innerText = "Age must be more than 18 years old.";
+            
+            // Password must have uppercase, lowercase, and number
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+            if (!passRegex.test(password)) return errorMsg.innerText = "Password must contain an uppercase letter, a lowercase letter, and a number.";
+            if (password !== confirm) return errorMsg.innerText = "Passwords do not match.";
+
+            // LocalStorage Check
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            const emailExists = users.some(u => u.email === email);
+            if (emailExists) return errorMsg.innerText = "Email is already registered.";
+
+            // Save User
+            const newUser = {
+                name: name,
+                age: age,
+                email: email,
+                password: password,
+                profileImage: "default-avatar.png", // Default image as requested
+                products: []
+            };
+
+            users.push(newUser);
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("Registration successful! Please login.");
+            window.location.href = "Login.html";
+        });
+    </script>
+</body>
+</html>

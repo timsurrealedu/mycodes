@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="snap-active">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+</head>
+<body>
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+        </div>
+    </nav>
+
+    <div class="home-section" id="hero">
+        <h1>mOGu Marketplace</h1>
+        <h2>Your all in one solution to shopping</h2>
+        <button onclick="goToExplore()" class="hero-btn" style="padding: 10px 20px; font-size: 18px; cursor: pointer; transition: 0.3s;">Explore Now</button>
+    </div>
+
+    <div class="home-section" id="cards">
+        <h2>Why choose us?</h2>
+        <div class="card-container">
+            <div class="benefit-card">
+                <h3>Fast Delivery</h3>
+                <p>Get your items in record time.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Secure Payment</h3>
+                <p>100% safe and encrypted transactions.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>24/7 Support</h3>
+                <p>We are here to help anytime.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-section" id="carousel-section">
+        <h2>Our Headquarters</h2>
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="images.jpg" alt="Building 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="images.jpg" alt="Building 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="images.jpg" alt="Building 3">
+            </div>
+            
+            <button class="prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next-btn" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+</body>
+</html>

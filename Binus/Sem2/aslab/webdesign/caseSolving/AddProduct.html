@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Add Product</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+    <style>
+        .form-container {
+            max-width: 500px; margin: 100px auto 40px; padding: 30px;
+            background: var(--card-bg); border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .form-container label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-container input, .form-container select, .form-container textarea {
+            width: 100%; padding: 10px; margin-bottom: 15px;
+            box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
+            background: var(--bg-color); color: var(--text-color);
+        }
+        .submit-btn {
+            width: 100%; padding: 12px; background-color: var(--primary-color);
+            color: white; border: none; border-radius: 4px; cursor: pointer;
+            transition: 0.3s; font-size: 16px; font-weight: bold;
+        }
+        .submit-btn:hover { background-color: #038c5a; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .error-text { color: red; font-size: 14px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <!-- STICKY NAVBAR -->
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+            <!-- Injected via updateNavbar() -->
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Add New Product</h2>
+        <p id="error-msg" class="error-text"></p>
+        
+        <form id="addProductForm">
+            <label for="prodName">Product Name:</label>
+            <input type="text" id="prodName" placeholder="Enter product name" required>
+
+            <label for="prodPrice">Price ($):</label>
+            <input type="number" id="prodPrice" placeholder="Enter price" min="1" required>
+
+            <label for="prodCategory">Category:</label>
+            <select id="prodCategory" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Shoes & Jewelry">Shoes & Jewelry</option>
+                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                <option value="Sports & Outdoors">Sports & Outdoors</option>
+            </select>
+
+            <label for="prodStock">Stock Quantity:</label>
+            <input type="number" id="prodStock" placeholder="Enter stock amount" min="1" required>
+
+            <label for="prodImage">Product Image:</label>
+            <input type="file" id="prodImage" accept="image/*" required>
+
+            <label for="prodDesc">Description:</label>
+            <textarea id="prodDesc" rows="4" placeholder="Enter product description" required></textarea>
+
+            <button type="submit" class="submit-btn">Add Product</button>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>mOGu Marketplace - Your all in one solution to shopping</p>
+        <p>Contact: support@mogu.com</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">FB</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TW</a>
+        </div>
+    </footer>
+
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            alert("You must be logged in to add products.");
+            window.location.href = "Login.html";
+        }
+
+        document.getElementById("addProductForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const errorMsg = document.getElementById("error-msg");
+            errorMsg.innerText = "";
+
+            const name = document.getElementById("prodName").value;
+            const price = parseFloat(document.getElementById("prodPrice").value);
+            const category = document.getElementById("prodCategory").value;
+            const stock = parseInt(document.getElementById("prodStock").value);
+            const imageInput = document.getElementById("prodImage");
+            const desc = document.getElementById("prodDesc").value;
+
+            // Validations
+            if (name.length <= 3) return errorMsg.innerText = "Product name must be more than 3 characters.";
+            if (!imageInput.files || imageInput.files.length === 0) return errorMsg.innerText = "Product image is required.";
+
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+            
+            // Create new product object
+            const newProduct = {
+                id: Date.now(), // Generate unique ID
+                name: name,
+                price: price,
+                category: category,
+                stock: stock,
+                description: desc,
+                image: "images.jpg", // Fake image path since browsers block local file path reading for security
+                seller: currentUser.name,
+                rating: 0,
+                sold: 0
+            };
+
+            products.push(newProduct);
+            localStorage.setItem("products", JSON.stringify(products));
+            
+            alert("Product added successfully!");
+            window.location.href = "Profile.html";
+        });
+    </script>
+</body>
+</html>

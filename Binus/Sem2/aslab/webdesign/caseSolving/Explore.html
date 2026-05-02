@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mOGu Marketplace - Explore</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+</head>
+<body>
+    <nav class="topnav">
+        <div class="nav-links nav-main" id="main-links">
+            <a href="Home.html">Home</a>
+            <a href="Explore.html">Explore</a>
+            <a href="About.html">About Us</a>
+        </div>
+        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
+        <div class="nav-links nav-secondary" id="auth-links">
+        </div>
+    </nav>
+
+    <div class="explore-container">
+        <h1>Explore Products</h1>
+        
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="Search by name...">
+            
+            <select id="categoryFilter">
+                <option value="All">All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Shoes & Jewelry">Shoes & Jewelry</option>
+                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                <option value="Sports & Outdoors">Sports & Outdoors</option>
+            </select>
+
+            <input type="number" id="minPrice" placeholder="Min Price ($)">
+            <input type="number" id="maxPrice" placeholder="Max Price ($)">
+            <input type="number" id="minSold" placeholder="Min Sold">
+            
+            <select id="minRating">
+                <option value="0">Min Rating (Stars)</option>
+                <option value="1">1+ Stars</option>
+                <option value="2">2+ Stars</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+
+            <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+        </div>
+
+        <div class="pagination">
+            <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+            <span id="pageIndicator">Page 1</span>
+            <button id="nextBtn" onclick="changePage(1)">Next</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>mOGu Marketplace - Your all in one solution to shopping</p>
+        <p>Contact: support@mogu.com</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">FB</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TW</a>
+        </div>
+    </footer>
+
+    <script>
+        const dummyProducts = [
+            { id: 1, name: "Sony Wireless Headphones", price: 150, rating: 4.8, sold: 300, category: "Electronics", image: "images.jpg", seller: "TechStore" },
+            { id: 2, name: "Nike Running Shoes", price: 120, rating: 4.5, sold: 450, category: "Shoes & Jewelry", image: "images.jpg", seller: "ShoeMart" },
+            { id: 3, name: "Blender 3000", price: 80, rating: 4.0, sold: 150, category: "Home & Kitchen", image: "images.jpg", seller: "HomeGoods" },
+            { id: 4, name: "Cotton T-Shirt", price: 20, rating: 4.2, sold: 1000, category: "Clothing", image: "images.jpg", seller: "FashionPlus" },
+            { id: 5, name: "Face Moisturizer", price: 35, rating: 4.6, sold: 200, category: "Beauty & Personal Care", image: "images.jpg", seller: "GlowBeauty" },
+            { id: 6, name: "Yoga Mat", price: 25, rating: 4.1, sold: 80, category: "Sports & Outdoors", image: "images.jpg", seller: "FitGear" },
+            { id: 7, name: "RGB Gaming Mouse", price: 60, rating: 4.9, sold: 500, category: "Electronics", image: "images.jpg", seller: "TechStore" },
+            { id: 8, name: "Leather Wallet", price: 45, rating: 4.3, sold: 90, category: "Clothing", image: "images.jpg", seller: "FashionPlus" },
+            { id: 9, name: "Smart Fitness Watch", price: 200, rating: 4.7, sold: 600, category: "Electronics", image: "images.jpg", seller: "FitGear" },
+            { id: 10, name: "Whey Protein Powder", price: 55, rating: 4.4, sold: 350, category: "Sports & Outdoors", image: "images.jpg", seller: "FitGear" },
+            { id: 11, name: "Automatic Coffee Maker", price: 110, rating: 4.5, sold: 210, category: "Home & Kitchen", image: "images.jpg", seller: "HomeGoods" },
+            { id: 12, name: "Sunscreen SPF 50", price: 15, rating: 4.8, sold: 800, category: "Beauty & Personal Care", image: "images.jpg", seller: "GlowBeauty" }
+        ];
+
+        if (!localStorage.getItem('products')) {
+            localStorage.setItem('products', JSON.stringify(dummyProducts));
+        }
+
+        let allProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let filteredProducts = [...allProducts];
+        let currentPage = 1;
+        const itemsPerPage = 8; 
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = ""; 
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = filteredProducts.slice(startIndex, endIndex);
+
+            if (paginatedItems.length === 0) {
+                grid.innerHTML = "<p>No products match your filters.</p>";
+            }
+
+            paginatedItems.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = "product-card";
+                card.onclick = () => goToProduct(prod.id); // Direct to product info
+                
+                card.innerHTML = `
+                    <img src="${prod.image}" alt="${prod.name}">
+                    <h3>${prod.name}</h3>
+                    <p class="price">$${prod.price}</p>
+                    <p>⭐ ${prod.rating} | ${prod.sold} Sold</p>
+                `;
+                grid.appendChild(card);
+            });
+
+            updatePagination();
+        }
+
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+            const minSold = parseInt(document.getElementById('minSold').value) || 0;
+            const minRating = parseFloat(document.getElementById('minRating').value) || 0;
+
+            filteredProducts = allProducts.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(search);
+                const matchCat = category === "All" || p.category === category;
+                const matchPrice = p.price >= minPrice && p.price <= maxPrice;
+                const matchSold = p.sold >= minSold;
+                const matchRating = p.rating >= minRating;
+
+                return matchSearch && matchCat && matchPrice && matchSold && matchRating;
+            });
+
+            currentPage = 1; 
+            renderProducts();
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderProducts();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
+            document.getElementById('pageIndicator').innerText = `Page ${currentPage} of ${totalPages}`;
+            
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        function goToProduct(productId) {
+            localStorage.setItem('selectedProductId', productId);
+            window.location.href = "ProductInfo.html";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
