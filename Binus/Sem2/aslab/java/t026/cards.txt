@@ -1,0 +1,34 @@
+Monster#1#Celtic Guardian#A strong Warrior.#1400#4#NONE#0
+Monster#2#Blue-Eyes White Dragon#A legendary dragon.#3000#8#NONE#0
+Monster#3#Dark Magician#The ultimate wizard.#2500#7#NONE#0
+Monster#4#Mechanicalchaser#A powerful Machine.#1850#4#NONE#0
+Monster#5#Blade Knight#A solitary Warrior.#1600#4#BOOST_SELF_ATK#400
+Monster#6#Kaiser Glider#A golden Dragon.#2400#6#NONE#0
+Monster#7#Gagagigo#A reptilian fighter.#1850#4#NONE#0
+Monster#8#Breaker the Magical Warrior#A spellcasting Warrior.#1600#4#DESTROY_MONSTER#0
+Monster#9#Kycoo the Ghost Destroyer#A magical spellcaster.#1800#4#NONE#0
+Monster#10#Cyber Dragon#An advanced Machine.#2100#5#NONE#0
+Monster#11#Lord British Space Fighter#A space Machine.#1200#4#DOUBLE_ATTACK#0
+Monster#12#Jinzo#A machine that hunts traps.#2400#6#NONE#0
+Monster#13#Kuriboh#A tiny fiend.#300#1#NEGATE_DAMAGE#0
+Spell#14#The Warrior Returning Alive#A Normal Spell for Warrior.#BOOST_ALL_WARRIOR#500
+Spell#15#Sogen#A Field Spell for Warrior.#BOOST_ALL_WARRIOR#300
+Spell#16#Dragon Treasure#A Normal Spell for Dragons.#BOOST_SELF_ATK#500
+Spell#17#Mountain#A Field Spell for Dragons.#BOOST_SELF_ATK#300
+Spell#18#Mystical Space Typhoon#A Normal Spell.#DESTROY_MONSTER#0
+Spell#19#Dark Magic Attack#A Normal Spell#DEBUFF_ALL_ENEMY#500
+Spell#20#Yami#A Field Spell.#DEBUFF_ALL_ENEMY#200
+Spell#21#Machine Duplication#A Continuous Spell.#BOOST_PER_MACHINE#200
+Spell#22#Limiter Removal#A Normal Spell.#BOOST_ALL_MACHINE#1000
+Spell#23#Sparks#A Normal Spell.#BURN_DAMAGE#200
+Spell#24#Ookazi#A Normal Spell.#BURN_DAMAGE#800
+Trap#25#Mirror Force#Trap.#REFLECT_DAMAGE#0
+Trap#26#Dimensional Prison#Trap.#DESTROY_MONSTER#0
+Trap#27#Negate Attack#Trap.#NEGATE_DAMAGE#0
+Trap#28#Magic Cylinder#Trap.#REFLECT_DAMAGE#0
+Trap#29#Sakuretsu Armor#Trap.#DESTROY_MONSTER#0
+Trap#30#Wall of Disruption#Trap.#DEBUFF_ALL_ENEMY#800
+Monster#101#Axe Raider#An axe wielding Warrior.#1700#4#NONE#0
+Monster#102#Luster Dragon#A beautiful Dragon.#1900#4#NONE#0
+Monster#103#Gemini Elf#Twin spells.#1900#4#NONE#0
+Monster#104#X-Head Cannon#A Machine weapon.#1800#4#NONE#0
