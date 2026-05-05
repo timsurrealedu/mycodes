@@ -1,27 +1,29 @@
-:root{
+:root {
     --bg-color: #ffffff;
     --text-color: #000000;
-    --primary-color: #04AA6D;
+    --primary-color: #04aa6d;
     --card-bg: #f1f1f1;
     --nav-bg: #333333;
 }
 
-.dark-mode{
+.dark-mode {
     --bg-color: #121212;
     --text-color: #ffffff;
     --card-bg: #1e1e1e;
     --nav-bg: #000000;
 }
 
-body{
+body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-.topnav{
+.topnav {
     position: fixed;
     top: 0;
     width: 100%;
@@ -34,12 +36,12 @@ body{
     box-sizing: border-box;
 }
 
-.nav-links{
+.nav-links {
     display: flex;
     gap: 15px;
 }
 
-.nav-links a{
+.nav-links a {
     color: white;
     text-decoration: none;
     padding: 8px 12px;
@@ -47,21 +49,29 @@ body{
     transition: 0.3s;
 }
 
-.nav-links a:hover{
-    background-color: var(--primary-color);
+.nav-links a:hover {
+    background-color: var(
+        --primary-color
+    );
 }
 
-.nav-main a {font-size: 16px; font-weight: bold;}
-.nav-secondary a, .nav-secondary button {font-size: 14px;}
+.nav-main a {
+    font-size: 16px;
+    font-weight: bold;
+}
+.nav-secondary a,
+.nav-secondary button {
+    font-size: 14px;
+}
 
-.hamburger{
+.hamburger {
     display: none;
     color: white;
     font-size: 24px;
     cursor: pointer;
 }
 
-footer{
+footer {
     background-color: var(--nav-bg);
     color: white;
     text-align: center;
@@ -69,18 +79,18 @@ footer{
     margin-top: auto;
 }
 
-.social-link{
-    color:white;
+.social-link {
+    color: white;
     margin: 0 10px;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.social-link:hover{
+.social-link:hover {
     color: var(--primary-color);
 }
 
-html.snap-active{
+html.snap-active {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
@@ -104,7 +114,7 @@ html.snap-active{
     justify-content: center;
 }
 
-.benefit-card{
+.benefit-card {
     width: 200px;
     height: 250px;
     background: var(--card-bg);
@@ -114,15 +124,18 @@ html.snap-active{
     padding: 20px;
     text-align: center;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
 }
 
-.benefit-card:hover{
-    transform: rotateY(15deg) rotateX(10deg) scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+.benefit-card:hover {
+    transform: rotateY(15deg)
+        rotateX(10deg) scale(1.05);
+    box-shadow: 0 10px 20px
+        rgba(0, 0, 0, 0.3);
 }
 
-.carousel-container{
+.carousel-container {
     position: relative;
     width: 80%;
     max-width: 600px;
@@ -130,25 +143,31 @@ html.snap-active{
     border-radius: 8px;
 }
 
-.carousel-slide{
+.carousel-slide {
     display: none;
     width: 100%;
 }
 
-.carousel-slide.active{
+.carousel-slide.active {
     display: block;
 }
 
-.carousel-slide img{
+.carousel-slide img {
     width: 100%;
     height: auto;
 }
 
-.prev-btn, .next-btn{
+.prev-btn,
+.next-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(
+        0,
+        0,
+        0,
+        0.5
+    );
     color: white;
     border: none;
     padding: 10px;
@@ -156,12 +175,21 @@ html.snap-active{
     transition: 0.3s;
 }
 
-.prev-btn:hover, .next-btn:hover { background-color: var(--primary-color);}
-.prev-btn { left: 10px;}
-.next-btn { right: 10px;}
+.prev-btn:hover,
+.next-btn:hover {
+    background-color: var(
+        --primary-color
+    );
+}
+.prev-btn {
+    left: 10px;
+}
+.next-btn {
+    right: 10px;
+}
 
-@media screen and (max-width: 768px){
-    .nav-links{
+@media screen and (max-width: 768px) {
+    .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
@@ -170,8 +198,12 @@ html.snap-active{
         left: 0;
         background-color: var(--nav-bg);
     }
-    .nav-links.active {display:flex;}
-    .hamburger{ display: block;}
+    .nav-links.active {
+        display: flex;
+    }
+    .hamburger {
+        display: block;
+    }
 }
 
 .explore-container {
@@ -188,11 +220,13 @@ html.snap-active{
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
     align-items: center;
 }
 
-.filter-section input, .filter-section select {
+.filter-section input,
+.filter-section select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -204,13 +238,17 @@ html.snap-active{
 
 .filter-btn {
     padding: 10px 20px;
-    background-color: var(--primary-color);
+    background-color: var(
+        --primary-color
+    );
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s; /* Pseudo-class requirement */
+    transition:
+        background-color 0.3s,
+        transform 0.2s; /* Pseudo-class requirement */
 }
 
 .filter-btn:hover {
@@ -220,7 +258,10 @@ html.snap-active{
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(250px, 1fr)
+    );
     gap: 20px;
 }
 
@@ -230,13 +271,17 @@ html.snap-active{
     padding: 15px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s; /* Pseudo-class requirement */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s; /* Pseudo-class requirement */
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 16px
+        rgba(0, 0, 0, 0.3);
 }
 
 .product-card img {
@@ -247,9 +292,19 @@ html.snap-active{
     margin-bottom: 15px;
 }
 
-.product-card h3 { margin: 10px 0; font-size: 18px; }
-.product-card p { margin: 5px 0; font-size: 14px; }
-.price { color: var(--primary-color); font-weight: bold; font-size: 16px;}
+.product-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+.product-card p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+.price {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 16px;
+}
 
 .pagination {
     display: flex;
@@ -269,8 +324,11 @@ html.snap-active{
     transition: 0.3s;
 }
 
-.pagination button:hover:not(:disabled) {
-    background-color: var(--primary-color);
+.pagination
+    button:hover:not(:disabled) {
+    background-color: var(
+        --primary-color
+    );
     color: white;
 }
 
@@ -306,7 +364,8 @@ html.snap-active{
     padding: 30px 20px;
     border-radius: 8px;
     width: 250px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
 
@@ -318,7 +377,8 @@ html.snap-active{
     margin-top: 30px;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.2);
 }
 
 .map-container iframe {
@@ -343,7 +403,8 @@ html.snap-active{
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
 }
 
 .profile-header img {
@@ -351,7 +412,8 @@ html.snap-active{
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary-color);
+    border: 3px solid
+        var(--primary-color);
 }
 
 .profile-stats {
@@ -392,7 +454,8 @@ html.snap-active{
 }
 
 .tab-btn.active {
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid
+        var(--primary-color);
     color: var(--primary-color);
 }
 
@@ -402,7 +465,8 @@ html.snap-active{
     background: var(--card-bg);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.1);
 }
 
 .tab-content.active {
@@ -432,7 +496,9 @@ html.snap-active{
     gap: 10px;
     margin-top: 15px;
 }
-.edit-btn, .delete-btn, .add-product-btn {
+.edit-btn,
+.delete-btn,
+.add-product-btn {
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
@@ -441,11 +507,55 @@ html.snap-active{
     font-weight: bold;
     transition: 0.3s;
 }
-.add-product-btn { background-color: var(--primary-color); padding: 10px 20px; font-size: 16px; margin-bottom: 20px;}
-.add-product-btn:hover { background-color: #038c5a; transform: translateY(-2px); }
+.add-product-btn {
+    background-color: var(
+        --primary-color
+    );
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.add-product-btn:hover {
+    background-color: #038c5a;
+    transform: translateY(-2px);
+}
 
-.edit-btn { background-color: #2196F3; flex: 1; }
-.edit-btn:hover { background-color: #0b7dda; transform: scale(1.05); }
+.edit-btn {
+    background-color: #2196f3;
+    flex: 1;
+}
+.edit-btn:hover {
+    background-color: #0b7dda;
+    transform: scale(1.05);
+}
 
-.delete-btn { background-color: #f44336; flex: 1; }
-.delete-btn:hover { background-color: #da190b; transform: scale(1.05); }
+.delete-btn {
+    background-color: #f44336;
+    flex: 1;
+}
+.delete-btn:hover {
+    background-color: #da190b;
+    transform: scale(1.05);
+}
+.carousel-dots {
+    text-align: center;
+    padding: 8px 0;
+}
+.carousel-dots .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(
+        255,
+        255,
+        255,
+        0.5
+    );
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.carousel-dots .dot.active {
+    background: white;
+}

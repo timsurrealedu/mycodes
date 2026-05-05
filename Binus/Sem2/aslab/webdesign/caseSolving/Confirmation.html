@@ -1,95 +1,304 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mOGu Marketplace - Confirmation</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="theme.js" defer></script>
-    <style>
-        .container { max-width: 800px; margin: 100px auto 40px; padding: 20px; background: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        
-        .summary-card { display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 20px; margin-bottom: 20px; }
-        .summary-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; }
-        .summary-info h3 { margin: 0 0 10px 0; }
-        .summary-info p { margin: 5px 0; }
-        .summary-price { color: var(--primary-color); font-weight: bold; font-size: 18px; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>
+            mOGu Marketplace -
+            Confirmation
+        </title>
+        <link
+            rel="stylesheet"
+            href="style.css"
+        />
+        <script
+            src="theme.js"
+            defer
+        ></script>
+        <style>
+            .container {
+                max-width: 800px;
+                margin: 100px auto 40px;
+                padding: 20px;
+                background: var(
+                    --card-bg
+                );
+                border-radius: 8px;
+                box-shadow: 0 4px 8px
+                    rgba(0, 0, 0, 0.1);
+            }
 
-        .payment-methods { display: flex; gap: 15px; margin-bottom: 30px; }
-        .payment-btn { 
-            flex: 1; padding: 15px; border: 2px solid #ccc; border-radius: 8px; background: var(--bg-color); 
-            color: var(--text-color); cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; 
-        }
-        .payment-btn:hover { background-color: #f0f0f0; border-color: gray; color: black; transform: translateY(-2px); }
-        .payment-btn.selected { border-color: var(--primary-color); background-color: rgba(4, 170, 109, 0.1); color: var(--text-color); }
+            .summary-card {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                border-bottom: 1px solid
+                    #ccc;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+            .summary-card img {
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+            .summary-info h3 {
+                margin: 0 0 10px 0;
+            }
+            .summary-info p {
+                margin: 5px 0;
+            }
+            .summary-price {
+                color: var(
+                    --primary-color
+                );
+                font-weight: bold;
+                font-size: 18px;
+            }
 
-        .confirm-btn { 
-            width: 100%; padding: 15px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold;
-            background-color: gray; color: white; /* Default disabled state */
-        }
-        .confirm-btn.active { background-color: var(--primary-color); }
-        .confirm-btn.active:hover { background-color: #038c5a; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    </style>
-</head>
-<body>
-    <nav class="topnav">
-        <div class="nav-links nav-main" id="main-links">
-            <a href="Home.html">Home</a>
-            <a href="Explore.html">Explore</a>
-            <a href="About.html">About Us</a>
+            .payment-methods {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            .payment-btn {
+                flex: 1;
+                padding: 15px;
+                border: 2px solid #ccc;
+                border-radius: 8px;
+                background: var(
+                    --bg-color
+                );
+                color: var(
+                    --text-color
+                );
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+            .payment-btn:hover {
+                background-color: #f0f0f0;
+                border-color: gray;
+                color: black;
+                transform: translateY(
+                    -2px
+                );
+            }
+            .payment-btn.selected {
+                border-color: var(
+                    --primary-color
+                );
+                background-color: rgba(
+                    4,
+                    170,
+                    109,
+                    0.1
+                );
+                color: var(
+                    --text-color
+                );
+            }
+
+            .confirm-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: 0.3s;
+                font-weight: bold;
+                background-color: gray;
+                color: white; /* Default disabled state */
+            }
+            .confirm-btn.active {
+                background-color: var(
+                    --primary-color
+                );
+            }
+            .confirm-btn.active:hover {
+                background-color: #038c5a;
+                transform: translateY(
+                    -2px
+                );
+                box-shadow: 0 4px 8px
+                    rgba(0, 0, 0, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="topnav">
+            <div
+                class="nav-links nav-main"
+                id="main-links"
+            >
+                <a href="Home.html"
+                    >Home</a
+                >
+                <a href="Explore.html"
+                    >Explore</a
+                >
+                <a href="About.html"
+                    >About Us</a
+                >
+            </div>
+            <span
+                class="hamburger"
+                onclick="toggleMenu()"
+                >&#9776;</span
+            >
+            <div
+                class="nav-links nav-secondary"
+                id="auth-links"
+            ></div>
+        </nav>
+
+        <div class="container">
+            <h2>Order Confirmation</h2>
+
+            <div
+                id="product-summary"
+                class="summary-card"
+            ></div>
+
+            <h3>
+                Select Payment Method
+            </h3>
+            <div
+                class="payment-methods"
+            >
+                <button
+                    class="payment-btn"
+                    onclick="
+                        selectPayment(
+                            'BCA',
+                            this,
+                        )
+                    "
+                >
+                    BCA Virtual Account
+                </button>
+                <button
+                    class="payment-btn"
+                    onclick="
+                        selectPayment(
+                            'OVO',
+                            this,
+                        )
+                    "
+                >
+                    OVO
+                </button>
+                <button
+                    class="payment-btn"
+                    onclick="
+                        selectPayment(
+                            'Credit Card',
+                            this,
+                        )
+                    "
+                >
+                    Credit Card
+                </button>
+            </div>
+
+            <button
+                id="confirmPurchaseBtn"
+                class="confirm-btn"
+                onclick="
+                    processPurchase()
+                "
+                disabled
+            >
+                Confirm Purchase
+            </button>
         </div>
-        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
-        <div class="nav-links nav-secondary" id="auth-links">
-        </div>
-    </nav>
 
-    <div class="container">
-        <h2>Order Confirmation</h2>
-        
-        <div id="product-summary" class="summary-card">
-        </div>
+        <footer>
+            <p>
+                mOGu Marketplace - Your
+                all in one solution to
+                shopping
+            </p>
+            <p>
+                Contact:
+                support@mogu.com
+            </p>
+            <div class="social-icons">
+                <a
+                    href="#"
+                    class="social-link"
+                    >FB</a
+                >
+                <a
+                    href="#"
+                    class="social-link"
+                    >IG</a
+                >
+                <a
+                    href="#"
+                    class="social-link"
+                    >TW</a
+                >
+            </div>
+        </footer>
 
-        <h3>Select Payment Method</h3>
-        <div class="payment-methods">
-            <button class="payment-btn" onclick="selectPayment('BCA', this)">BCA Virtual Account</button>
-            <button class="payment-btn" onclick="selectPayment('OVO', this)">OVO</button>
-            <button class="payment-btn" onclick="selectPayment('Credit Card', this)">Credit Card</button>
-        </div>
+        <script>
+            const currentUser =
+                JSON.parse(
+                    localStorage.getItem(
+                        'currentUser',
+                    ),
+                );
+            const products =
+                JSON.parse(
+                    localStorage.getItem(
+                        'products',
+                    ),
+                ) || [];
+            const selectedProductId =
+                parseInt(
+                    localStorage.getItem(
+                        'selectedProductId',
+                    ),
+                );
+            const product =
+                products.find(
+                    (p) =>
+                        p.id ===
+                        selectedProductId,
+                );
 
-        <button id="confirmPurchaseBtn" class="confirm-btn" onclick="processPurchase()" disabled>Confirm Purchase</button>
-    </div>
+            let selectedPaymentMethod =
+                null;
 
-    <footer>
-        <p>mOGu Marketplace - Your all in one solution to shopping</p>
-        <p>Contact: support@mogu.com</p>
-        <div class="social-icons">
-            <a href="#" class="social-link">FB</a>
-            <a href="#" class="social-link">IG</a>
-            <a href="#" class="social-link">TW</a>
-        </div>
-    </footer>
+            if (!currentUser) {
+                alert(
+                    'You must be logged in to access this page.',
+                );
+                window.location.href =
+                    'Login.html';
+            } else if (!product) {
+                alert(
+                    'No product selected.',
+                );
+                window.location.href =
+                    'Explore.html';
+            }
 
-    <script>
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        const selectedProductId = parseInt(localStorage.getItem('selectedProductId'));
-        const product = products.find(p => p.id === selectedProductId);
-        
-        let selectedPaymentMethod = null;
+            function renderSummary() {
+                if (!product) return;
+                const stock =
+                    product.stock || 50;
 
-        if (!currentUser) {
-            alert("You must be logged in to access this page.");
-            window.location.href = "Login.html";
-        } else if (!product) {
-            alert("No product selected.");
-            window.location.href = "Explore.html";
-        }
-
-        function renderSummary() {
-            if (!product) return;
-            const stock = product.stock || 50; // Fallback stock
-
-            document.getElementById('product-summary').innerHTML = `
+                document.getElementById(
+                    'product-summary',
+                ).innerHTML = `
                 <img src="${product.image}" alt="${product.name}">
                 <div class="summary-info">
                     <h3>${product.name}</h3>
@@ -98,47 +307,104 @@
                     <p class="summary-price">Total: $${product.price}</p>
                 </div>
             `;
-        }
-
-        function selectPayment(method, btnElement) {
-            selectedPaymentMethod = method;
-            
-            const buttons = document.querySelectorAll('.payment-btn');
-            buttons.forEach(btn => btn.classList.remove('selected'));
-            
-            btnElement.classList.add('selected');
-
-            const confirmBtn = document.getElementById('confirmPurchaseBtn');
-            confirmBtn.disabled = false;
-            confirmBtn.classList.add('active');
-            confirmBtn.innerText = `Confirm Purchase with ${method}`;
-        }
-
-        function processPurchase() {
-            if (!selectedPaymentMethod) return;
-
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            let updatedUser = users.find(u => u.email === currentUser.email);
-            
-            if (updatedUser) {
-                if (!updatedUser.purchases) updatedUser.purchases = [];
-                updatedUser.purchases.push(product.id);
-                
-                localStorage.setItem('users', JSON.stringify(users));
-                
-                currentUser.purchases = updatedUser.purchases;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
             }
 
-            alert(`Purchase Completed Successfully!\nPayment Method: ${selectedPaymentMethod}\nThank you for shopping at mOGu!`);
-            window.location.href = "Explore.html";
-        }
+            function selectPayment(
+                method,
+                btnElement,
+            ) {
+                selectedPaymentMethod =
+                    method;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (currentUser && product) {
-                renderSummary();
+                const buttons =
+                    document.querySelectorAll(
+                        '.payment-btn',
+                    );
+                buttons.forEach((btn) =>
+                    btn.classList.remove(
+                        'selected',
+                    ),
+                );
+
+                btnElement.classList.add(
+                    'selected',
+                );
+
+                const confirmBtn =
+                    document.getElementById(
+                        'confirmPurchaseBtn',
+                    );
+                confirmBtn.disabled = false;
+                confirmBtn.classList.add(
+                    'active',
+                );
+                confirmBtn.innerText = `Confirm Purchase with ${method}`;
             }
-        });
-    </script>
-</body>
+
+            function processPurchase() {
+                if (
+                    !selectedPaymentMethod
+                )
+                    return;
+
+                let users =
+                    JSON.parse(
+                        localStorage.getItem(
+                            'users',
+                        ),
+                    ) || [];
+                let updatedUser =
+                    users.find(
+                        (u) =>
+                            u.email ===
+                            currentUser.email,
+                    );
+
+                if (updatedUser) {
+                    if (
+                        !updatedUser.purchases
+                    )
+                        updatedUser.purchases =
+                            [];
+                    updatedUser.purchases.push(
+                        product.id,
+                    );
+
+                    localStorage.setItem(
+                        'users',
+                        JSON.stringify(
+                            users,
+                        ),
+                    );
+
+                    currentUser.purchases =
+                        updatedUser.purchases;
+                    localStorage.setItem(
+                        'currentUser',
+                        JSON.stringify(
+                            currentUser,
+                        ),
+                    );
+                }
+
+                alert(
+                    `Purchase Completed Successfully!\nPayment Method: ${selectedPaymentMethod}\nThank you for shopping at mOGu!`,
+                );
+                window.location.href =
+                    'Explore.html';
+            }
+
+            document.addEventListener(
+                'DOMContentLoaded',
+                () => {
+                    if (
+                        currentUser &&
+                        product
+                    ) {
+                        renderSummary();
+                    }
+                },
+            );
+        </script>
+    </body>
 </html>

@@ -1,145 +1,364 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mOGu Marketplace - Product Info</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="theme.js" defer></script>
-    <style>
-        .container { max-width: 1200px; margin: 80px auto 40px; padding: 0 20px; }
-        
-        /* Product Info Layout */
-        .product-details { display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 50px; }
-        .product-image { flex: 1; min-width: 300px; }
-        .product-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .product-text { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
-        
-        /* Buttons with Pseudo-classes */
-        .buy-btn { 
-            background-color: var(--primary-color); color: white; padding: 15px; 
-            border: none; border-radius: 4px; font-size: 18px; cursor: pointer; transition: 0.3s; 
-        }
-        .buy-btn:hover { background-color: #038c5a; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        
-        .seller-btn { 
-            background-color: var(--card-bg); color: var(--text-color); padding: 10px 15px; 
-            border: 1px solid #ccc; border-radius: 4px; cursor: pointer; display: flex; 
-            align-items: center; gap: 10px; width: fit-content; transition: 0.3s; 
-        }
-        .seller-btn:hover { background-color: #ddd; color: black; }
-        .seller-btn img { width: 30px; height: 30px; border-radius: 50%; }
-
-        /* Review Section */
-        .review-section { background: var(--card-bg); padding: 20px; border-radius: 8px; margin-bottom: 40px; }
-        .review-card { border-bottom: 1px solid #ccc; padding: 10px 0; }
-        .review-card:last-child { border-bottom: none; }
-        .review-date { font-size: 12px; color: gray; }
-        
-        .add-review-form { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .add-review-form textarea, .add-review-form select { 
-            padding: 10px; border-radius: 4px; border: 1px solid #ccc; background: var(--bg-color); color: var(--text-color); 
-        }
-        .submit-review-btn {
-            background-color: var(--primary-color); color: white; padding: 10px; border: none; 
-            border-radius: 4px; cursor: pointer; transition: 0.3s; width: 150px;
-        }
-        .submit-review-btn:hover { background-color: #038c5a; }
-
-        /* Recommended Section */
-        .recommended-section { margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <!-- STICKY NAVBAR -->
-    <nav class="topnav">
-        <div class="nav-links nav-main" id="main-links">
-            <a href="Home.html">Home</a>
-            <a href="Explore.html">Explore</a>
-            <a href="About.html">About Us</a>
-        </div>
-        <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
-        <div class="nav-links nav-secondary" id="auth-links">
-            <!-- Injected via updateNavbar() -->
-        </div>
-    </nav>
-
-    <div class="container">
-        <!-- 1. PRODUCT INFO SECTION -->
-        <div class="product-details" id="product-details">
-            <!-- Injected via JS -->
-        </div>
-
-        <!-- 2. REVIEW SECTION -->
-        <div class="review-section">
-            <h2>Reviews</h2>
-            <div style="margin-bottom: 15px;">
-                <label for="reviewFilter">Filter by Stars:</label>
-                <select id="reviewFilter" onchange="renderReviews()">
-                    <option value="0">All Stars</option>
-                    <option value="5">5 Stars</option>
-                    <option value="4">4 Stars</option>
-                    <option value="3">3 Stars</option>
-                    <option value="2">2 Stars</option>
-                    <option value="1">1 Star</option>
-                </select>
-            </div>
-            
-            <div id="reviews-list">
-                <!-- Reviews injected via JS -->
-            </div>
-
-            <div id="add-review-container">
-                <!-- Add review form injected here if user is eligible -->
-            </div>
-        </div>
-
-        <!-- 3. RECOMMENDED SECTION -->
-        <div class="recommended-section">
-            <h2>Recommended For You</h2>
-            <div class="product-grid" id="recommended-grid">
-                <!-- 5 random products injected via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>mOGu Marketplace - Your all in one solution to shopping</p>
-        <p>Contact: support@mogu.com</p>
-        <div class="social-icons">
-            <a href="#" class="social-link">FB</a>
-            <a href="#" class="social-link">IG</a>
-            <a href="#" class="social-link">TW</a>
-        </div>
-    </footer>
-
-    <script>
-        // Load Data
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const selectedProductId = parseInt(localStorage.getItem('selectedProductId'));
-        
-        const product = products.find(p => p.id === selectedProductId);
-
-        // Dummy reviews logic
-        let reviews = JSON.parse(localStorage.getItem(`reviews_${selectedProductId}`)) || [
-            { name: "John Doe", rating: 5, text: "Excellent product, highly recommend!", date: "2026-04-10" },
-            { name: "Jane Smith", rating: 4, text: "Very good, but shipping was a bit slow.", date: "2026-04-12" }
-        ];
-
-        function renderProductInfo() {
-            if (!product) {
-                document.getElementById('product-details').innerHTML = "<p>Product not found.</p>";
-                return;
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>
+            mOGu Marketplace - Product
+            Info
+        </title>
+        <link
+            rel="stylesheet"
+            href="style.css"
+        />
+        <script
+            src="theme.js"
+            defer
+        ></script>
+        <style>
+            .container {
+                max-width: 1200px;
+                margin: 80px auto 40px;
+                padding: 0 20px;
             }
 
-            // Fallbacks for data that might not exist in the dummy set yet
-            const stock = product.stock || 50; 
-            const description = product.description || "This is a high-quality product perfect for your everyday needs. Durable, reliable, and exactly what you are looking for.";
-            const sellerSold = product.sellerSold || 150;
+            .product-details {
+                display: flex;
+                gap: 40px;
+                flex-wrap: wrap;
+                margin-bottom: 50px;
+            }
+            .product-image {
+                flex: 1;
+                min-width: 300px;
+            }
+            .product-image img {
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px
+                    rgba(0, 0, 0, 0.1);
+            }
+            .product-text {
+                flex: 1;
+                min-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
 
-            document.getElementById('product-details').innerHTML = `
+            .buy-btn {
+                background-color: var(
+                    --primary-color
+                );
+                color: white;
+                padding: 15px;
+                border: none;
+                border-radius: 4px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .buy-btn:hover {
+                background-color: #038c5a;
+                transform: translateY(
+                    -3px
+                );
+                box-shadow: 0 4px 8px
+                    rgba(0, 0, 0, 0.2);
+            }
+
+            .seller-btn {
+                background-color: var(
+                    --card-bg
+                );
+                color: var(
+                    --text-color
+                );
+                padding: 10px 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                width: fit-content;
+                transition: 0.3s;
+            }
+            .seller-btn:hover {
+                background-color: #ddd;
+                color: black;
+            }
+            .seller-btn img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+            .review-section {
+                background: var(
+                    --card-bg
+                );
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 40px;
+            }
+            .review-card {
+                border-bottom: 1px solid
+                    #ccc;
+                padding: 10px 0;
+            }
+            .review-card:last-child {
+                border-bottom: none;
+            }
+            .review-date {
+                font-size: 12px;
+                color: gray;
+            }
+
+            .add-review-form {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .add-review-form textarea,
+            .add-review-form select {
+                padding: 10px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                background: var(
+                    --bg-color
+                );
+                color: var(
+                    --text-color
+                );
+            }
+            .submit-review-btn {
+                background-color: var(
+                    --primary-color
+                );
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.3s;
+                width: 150px;
+            }
+            .submit-review-btn:hover {
+                background-color: #038c5a;
+            }
+
+            .recommended-section {
+                margin-top: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="topnav">
+            <div
+                class="nav-links nav-main"
+                id="main-links"
+            >
+                <a href="Home.html"
+                    >Home</a
+                >
+                <a href="Explore.html"
+                    >Explore</a
+                >
+                <a href="About.html"
+                    >About Us</a
+                >
+            </div>
+            <span
+                class="hamburger"
+                onclick="toggleMenu()"
+                >&#9776;</span
+            >
+            <div
+                class="nav-links nav-secondary"
+                id="auth-links"
+            ></div>
+        </nav>
+
+        <div class="container">
+            <div
+                class="product-details"
+                id="product-details"
+            ></div>
+
+            <div class="review-section">
+                <h2>Reviews</h2>
+                <div
+                    style="
+                        margin-bottom: 15px;
+                    "
+                >
+                    <label
+                        for="reviewFilter"
+                        >Filter by
+                        Stars:</label
+                    >
+                    <select
+                        id="reviewFilter"
+                        onchange="
+                            renderReviews()
+                        "
+                    >
+                        <option
+                            value="0"
+                        >
+                            All Stars
+                        </option>
+                        <option
+                            value="5"
+                        >
+                            5 Stars
+                        </option>
+                        <option
+                            value="4"
+                        >
+                            4 Stars
+                        </option>
+                        <option
+                            value="3"
+                        >
+                            3 Stars
+                        </option>
+                        <option
+                            value="2"
+                        >
+                            2 Stars
+                        </option>
+                        <option
+                            value="1"
+                        >
+                            1 Star
+                        </option>
+                    </select>
+                </div>
+
+                <div
+                    id="reviews-list"
+                ></div>
+
+                <div
+                    id="add-review-container"
+                ></div>
+            </div>
+
+            <div
+                class="recommended-section"
+            >
+                <h2>
+                    Recommended For You
+                </h2>
+                <div
+                    class="product-grid"
+                    id="recommended-grid"
+                ></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                mOGu Marketplace - Your
+                all in one solution to
+                shopping
+            </p>
+            <p>
+                Contact:
+                support@mogu.com
+            </p>
+            <div class="social-icons">
+                <a
+                    href="#"
+                    class="social-link"
+                    >FB</a
+                >
+                <a
+                    href="#"
+                    class="social-link"
+                    >IG</a
+                >
+                <a
+                    href="#"
+                    class="social-link"
+                    >TW</a
+                >
+            </div>
+        </footer>
+
+        <script>
+            const products =
+                JSON.parse(
+                    localStorage.getItem(
+                        'products',
+                    ),
+                ) || [];
+            const currentUser =
+                JSON.parse(
+                    localStorage.getItem(
+                        'currentUser',
+                    ),
+                );
+            const selectedProductId =
+                parseInt(
+                    localStorage.getItem(
+                        'selectedProductId',
+                    ),
+                );
+
+            const product =
+                products.find(
+                    (p) =>
+                        p.id ===
+                        selectedProductId,
+                );
+
+            let reviews = JSON.parse(
+                localStorage.getItem(
+                    `reviews_${selectedProductId}`,
+                ),
+            ) || [
+                {
+                    name: 'John Doe',
+                    rating: 5,
+                    text: 'Excellent product, highly recommend!',
+                    date: '2026-04-10',
+                },
+                {
+                    name: 'Jane Smith',
+                    rating: 4,
+                    text: 'Very good, but shipping was a bit slow.',
+                    date: '2026-04-12',
+                },
+            ];
+
+            function renderProductInfo() {
+                if (!product) {
+                    document.getElementById(
+                        'product-details',
+                    ).innerHTML =
+                        '<p>Product not found.</p>';
+                    return;
+                }
+
+                const stock =
+                    product.stock || 50;
+                const description =
+                    product.description ||
+                    'This is a high-quality product perfect for your everyday needs. Durable, reliable, and exactly what you are looking for.';
+                const sellerSold =
+                    product.sellerSold ||
+                    150;
+
+                document.getElementById(
+                    'product-details',
+                ).innerHTML = `
                 <div class="product-image">
                     <img src="${product.image}" alt="${product.name}">
                 </div>
@@ -158,43 +377,72 @@
                     <button class="buy-btn" onclick="goToConfirmation()">Buy Now</button>
                 </div>
             `;
-        }
+            }
 
-        function renderReviews() {
-            const filterValue = parseInt(document.getElementById('reviewFilter').value);
-            const list = document.getElementById('reviews-list');
-            list.innerHTML = "";
+            function renderReviews() {
+                const filterValue =
+                    parseInt(
+                        document.getElementById(
+                            'reviewFilter',
+                        ).value,
+                    );
+                const list =
+                    document.getElementById(
+                        'reviews-list',
+                    );
+                list.innerHTML = '';
 
-            const filteredReviews = filterValue === 0 ? reviews : reviews.filter(r => r.rating === filterValue);
+                const filteredReviews =
+                    filterValue === 0
+                        ? reviews
+                        : reviews.filter(
+                              (r) =>
+                                  r.rating ===
+                                  filterValue,
+                          );
 
-            if (filteredReviews.length === 0) {
-                list.innerHTML = "<p>No reviews found.</p>";
-            } else {
-                filteredReviews.forEach(r => {
-                    list.innerHTML += `
+                if (
+                    filteredReviews.length ===
+                    0
+                ) {
+                    list.innerHTML =
+                        '<p>No reviews found.</p>';
+                } else {
+                    filteredReviews.forEach(
+                        (r) => {
+                            list.innerHTML += `
                         <div class="review-card">
                             <p><strong>${r.name}</strong> - ⭐ ${r.rating}</p>
                             <p>${r.text}</p>
                             <p class="review-date">${r.date}</p>
                         </div>
                     `;
-                });
+                        },
+                    );
+                }
             }
-        }
 
-        function renderAddReviewForm() {
-            const container = document.getElementById('add-review-container');
-            
-            // Check if logged in AND has bought the product
-            // Assuming we track purchases in currentUser.purchases array
-            const purchases = currentUser ? (currentUser.purchases || []) : [];
-            const hasBought = purchases.includes(selectedProductId);
+            function renderAddReviewForm() {
+                const container =
+                    document.getElementById(
+                        'add-review-container',
+                    );
 
-            // FOR TESTING PURPOSES ONLY: You can force hasBought to true here if you want to see the form
-            // const hasBought = currentUser != null; 
+                const purchases =
+                    currentUser
+                        ? currentUser.purchases ||
+                          []
+                        : [];
+                const hasBought =
+                    purchases.includes(
+                        selectedProductId,
+                    );
 
-            if (currentUser && hasBought) {
-                container.innerHTML = `
+                if (
+                    currentUser &&
+                    hasBought
+                ) {
+                    container.innerHTML = `
                     <div class="add-review-form">
                         <h3>Leave a Review</h3>
                         <select id="newRating">
@@ -208,81 +456,133 @@
                         <button class="submit-review-btn" onclick="submitReview()">Submit Review</button>
                     </div>
                 `;
-            }
-        }
-
-        function submitReview() {
-            const rating = parseInt(document.getElementById('newRating').value);
-            const text = document.getElementById('newReviewText').value;
-            
-            if (!text.trim()) {
-                alert("Please write a review before submitting.");
-                return;
+                }
             }
 
-            // Date formatting YYYY-MM-DD
-            const today = new Date();
-            const dateStr = today.toISOString().split('T')[0];
+            function submitReview() {
+                const rating = parseInt(
+                    document.getElementById(
+                        'newRating',
+                    ).value,
+                );
+                const text =
+                    document.getElementById(
+                        'newReviewText',
+                    ).value;
 
-            reviews.push({
-                name: currentUser.name,
-                rating: rating,
-                text: text,
-                date: dateStr
-            });
+                if (!text.trim()) {
+                    alert(
+                        'Please write a review before submitting.',
+                    );
+                    return;
+                }
 
-            localStorage.setItem(`reviews_${selectedProductId}`, JSON.stringify(reviews));
-            renderReviews();
-            document.getElementById('newReviewText').value = "";
-            alert("Review submitted!");
-        }
+                const today =
+                    new Date();
+                const dateStr = today
+                    .toISOString()
+                    .split('T')[0];
 
-        function renderRecommended() {
-            const grid = document.getElementById('recommended-grid');
-            grid.innerHTML = "";
-            
-            // Filter out current product, then shuffle and pick 5
-            let otherProducts = products.filter(p => p.id !== selectedProductId);
-            otherProducts = otherProducts.sort(() => 0.5 - Math.random()).slice(0, 5);
+                reviews.push({
+                    name: currentUser.name,
+                    rating: rating,
+                    text: text,
+                    date: dateStr,
+                });
 
-            otherProducts.forEach(prod => {
-                grid.innerHTML += `
+                localStorage.setItem(
+                    `reviews_${selectedProductId}`,
+                    JSON.stringify(
+                        reviews,
+                    ),
+                );
+                renderReviews();
+                document.getElementById(
+                    'newReviewText',
+                ).value = '';
+                alert(
+                    'Review submitted!',
+                );
+            }
+
+            function renderRecommended() {
+                const grid =
+                    document.getElementById(
+                        'recommended-grid',
+                    );
+                grid.innerHTML = '';
+
+                let otherProducts =
+                    products.filter(
+                        (p) =>
+                            p.id !==
+                            selectedProductId,
+                    );
+                otherProducts =
+                    otherProducts
+                        .sort(
+                            () =>
+                                0.5 -
+                                Math.random(),
+                        )
+                        .slice(0, 5);
+
+                otherProducts.forEach(
+                    (prod) => {
+                        grid.innerHTML += `
                     <div class="product-card" onclick="goToProduct(${prod.id})">
                         <img src="${prod.image}" alt="${prod.name}">
                         <h3>${prod.name}</h3>
                         <p class="price">$${prod.price}</p>
                     </div>
                 `;
-            });
-        }
-
-        // Navigation Functions
-        function goToSeller(sellerName) {
-            localStorage.setItem('viewSeller', sellerName);
-            window.location.href = "Profile.html";
-        }
-
-        function goToConfirmation() {
-            if (!currentUser) {
-                alert("You must be logged in to purchase items.");
-                window.location.href = "Login.html";
-            } else {
-                window.location.href = "Confirmation.html";
+                    },
+                );
             }
-        }
 
-        function goToProduct(productId) {
-            localStorage.setItem('selectedProductId', productId);
-            window.location.reload(); // Reload page with new product
-        }
+            function goToSeller(
+                sellerName,
+            ) {
+                localStorage.setItem(
+                    'viewSeller',
+                    sellerName,
+                );
+                window.location.href =
+                    'Profile.html';
+            }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProductInfo();
-            renderReviews();
-            renderAddReviewForm();
-            renderRecommended();
-        });
-    </script>
-</body>
+            function goToConfirmation() {
+                if (!currentUser) {
+                    alert(
+                        'You must be logged in to purchase items.',
+                    );
+                    window.location.href =
+                        'Login.html';
+                } else {
+                    window.location.href =
+                        'Confirmation.html';
+                }
+            }
+
+            function goToProduct(
+                productId,
+            ) {
+                localStorage.setItem(
+                    'selectedProductId',
+                    productId,
+                );
+                window.location.reload();
+            }
+
+            document.addEventListener(
+                'DOMContentLoaded',
+                () => {
+                    renderProductInfo();
+                    renderReviews();
+                    renderAddReviewForm();
+                    renderRecommended();
+                },
+            );
+        </script>
+    </body>
 </html>
