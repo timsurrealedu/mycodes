@@ -1,0 +1,36 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: cadetblue;
+}
+
+/* Navbar Container */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Space between logo and links */
+    align-items: center;
+    background-color: #26378b;
+    padding: 1rem 2rem;
+    color: white;
+}
+
+/* Navigation Links List */
+.nav-links {
+    display: flex;
+    list-style: none; /* Removes bullet points */
+}
+
+/* Individual Link Styling */
+.nav-links li a {
+    color: white;
+    text-decoration: none; /* Removes underline */
+    padding: 0 15px;
+    font-size: 1.1rem;
+}
+
+/* Hover Effect */
+.nav-links li a:hover {
+    color: #9d0bd7; /* Highlight color on hover */
+}
