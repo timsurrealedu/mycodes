@@ -9,4 +9,5 @@ int lol(int A)
 int main()
 {
     printf("%d", lol(2));
+    printf("asdasd");
 }
