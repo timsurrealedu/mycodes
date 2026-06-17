@@ -12,4 +12,5 @@ int main(){
     for(int i = 0 ; i < a ; i++){
         printf("%d ",numbs[i]);
     }
+    return 0;
 }
