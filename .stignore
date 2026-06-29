@@ -1,0 +1,76 @@
+// Git internals — never let Syncthing touch these
+.git
+**/.git
+
+// Node.js dependencies — large, regeneratable via npm install
+node_modules
+**/node_modules
+
+// Build artifacts
+dist
+build
+**/dist
+**/build
+
+// Python cache
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.pytest_cache
+
+// OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+// Editor/IDE state
+.vscode
+.idea
+**/.vscode
+**/.idea
+
+// Compiled binaries and object files
+**/*.o
+**/*.a
+**/*.so
+**/*.out
+**/*.exe
+**/*.dll
+
+// Archives and disk images
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.rar
+**/*.7z
+**/*.iso
+**/*.img
+
+// Large media files
+**/*.mp4
+**/*.mkv
+**/*.avi
+**/*.mov
+**/*.wmv
+**/*.flv
+**/*.mp3
+**/*.wav
+**/*.flac
+
+// Language-specific build/cache dirs
+target
+**/target
+vendor
+**/vendor
+.gradle
+**/.gradle
+.m2
+**/.m2
+**/.cache
+**/coverage
+**/.nyc_output
+
+// Logs
+**/*.log
+**/logs
